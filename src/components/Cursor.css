@@ -1,0 +1,78 @@
+/* Cursor propio. Colores por tono: sobre marfil → tinta; sobre arcilla/tinta → marfil. */
+.cursor {
+  --c: var(--ink);
+  --c-inv: var(--paper);
+  --s: 1; /* escala del anillo según el estado */
+  --down: 1; /* 0.82 mientras se pulsa */
+  position: fixed;
+  inset: 0;
+  z-index: 120; /* por encima del grano (90) y del header (80) */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+.cursor.is-visible { opacity: 1; }
+.cursor[data-tone='light'] {
+  --c: var(--paper);
+  --c-inv: var(--ink);
+}
+.cursor.is-down { --down: 0.82; }
+
+.cursor__ring,
+.cursor__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform; /* gsap escribe x/y aquí */
+}
+
+.cursor__ringshape {
+  display: block;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--c);
+  border-radius: 50%;
+  transform: scale(calc(var(--s) * var(--down)));
+  transition: transform 0.5s var(--ease-out), background-color 0.3s var(--ease-out),
+    border-color 0.3s var(--ease-out);
+}
+
+.cursor__dotshape {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--c);
+  transition: transform 0.35s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+
+/* Etiqueta centrada en el anillo (solo visible en el estado "view") */
+.cursor__label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--c-inv);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease-out);
+}
+
+/* Enlaces y botones: el anillo crece y se tiñe */
+.cursor[data-state='link'] { --s: 1.75; }
+.cursor[data-state='link'] .cursor__ringshape {
+  background: color-mix(in srgb, var(--c) 12%, transparent);
+}
+.cursor[data-state='link'] .cursor__dotshape { transform: scale(0); }
+
+/* Proyectos: disco relleno con etiqueta */
+.cursor[data-state='view'] { --s: 2.7; }
+.cursor[data-state='view'] .cursor__ringshape { background: var(--c); }
+.cursor[data-state='view'] .cursor__dotshape { transform: scale(0); }
+.cursor[data-state='view'] .cursor__label { opacity: 1; }
+
+/* Sin puntero fino no hay cursor propio */
+@media (hover: none), (pointer: coarse) {
+  .cursor { display: none; }
+}
