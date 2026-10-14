@@ -1,0 +1,14 @@
+/* Marcador de posición limpio: color sólido + etiqueta discreta con el nombre del archivo esperado. */
+.ph {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+  color: var(--paper);
+}
+.ph__label {
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  opacity: 0.85;
+}
