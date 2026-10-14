@@ -1,0 +1,53 @@
+/* ── Loader (retrato que se revela) ─────────────────────────────────────── */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 110; /* por encima del header (80) y del grano (90); por debajo del cursor (120) */
+}
+
+.loader__bg {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+}
+
+.loader__fades > * {
+  position: absolute;
+  margin: 0;
+  color: var(--ink);
+}
+.loader__name { left: var(--gutter); top: calc(var(--header-h) / 2 - 0.5em); }
+.loader__meta { right: var(--gutter); top: calc(var(--header-h) / 2 - 0.5em); }
+.loader__count {
+  left: var(--gutter);
+  bottom: var(--gutter);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(4.5rem, 12vw, 12rem);
+  line-height: 0.8;
+  letter-spacing: -0.03em;
+}
+
+/* Marco: mismo tamaño que la foto del hero; JS lo reduce y lo centra con transform. */
+.loader__frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background: #a64c2e; /* terracota de la foto: el marco se lee sólido y la foto emerge dentro */
+  will-change: transform;
+}
+.loader__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mientras carga: el scroll queda bloqueado y la página real espera detrás. La foto del hero y el header
+   aparecen justo cuando el marco aterriza (al quitarse la clase). */
+html.is-loading .scroller { overflow: hidden; }
+html.is-loading .hero__photo { visibility: hidden; }
+html.is-loading .header { opacity: 0; }
