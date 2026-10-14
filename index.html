@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Emma Aimetta — Front-End Developer & UX/UI Designer</title>
+    <meta
+      name="description"
+      content="Portafolio de Emma Aimetta: desarrollo front-end, diseño UX/UI, IA generativa, arquitectura e-commerce y logística operativa."
+    />
+    <meta name="theme-color" content="#7c3420" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237c3420'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-style='italic' font-size='40' text-anchor='middle' fill='%23f4efe7'%3EE%3C/text%3E%3C/svg%3E"
+    />
+    <!-- Loader: solo primera visita de la sesión y nunca con "reducir movimiento" (?loader lo fuerza).
+         Se decide aquí, antes de pintar, para que no haya destello de la página antes del loader.
+         Tope de 12 s: si algo falla, la página se desbloquea sola. Misma lógica que src/lib/loader.js. -->
+    <script>
+      (function () {
+        try {
+          var d = document.documentElement
+          var force = /[?&]loader\b/.test(location.search)
+          var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+          var seen = sessionStorage.getItem('eaim-loader')
+          if (force || (!reduce && !seen)) {
+            d.classList.add('is-loading')
+            setTimeout(function () { d.classList.remove('is-loading') }, 12000)
+          }
+        } catch (e) {}
+      })()
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- #scroller = contenedor de scroll a pantalla completa, sin barra visible (ver src/styles/scroll.css).
+         Vive aquí, fuera de React, para existir antes de que GSAP/Lenis lo necesiten. -->
+    <div id="scroller" class="scroller" tabindex="-1">
+      <div id="root" class="scroller__content"></div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
