@@ -1,0 +1,95 @@
+/* Bloque sólido de arcilla, texto en marfil (7.7:1). */
+.about {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.6vw, 24px);
+  row-gap: clamp(56px, 9vw, 140px);
+  padding: clamp(96px, 14vw, 220px) var(--gutter) clamp(96px, 12vw, 200px);
+  background: var(--clay);
+  color: var(--paper);
+}
+
+.about__label { grid-column: 1 / 4; padding-top: 1.1em; }
+
+.about__statement {
+  grid-column: 3 / 13; /* arranca desplazado: asimetría */
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 5.6vw, 6.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.about__grid {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: end;
+}
+
+/* Collage: foto grande + foto pequeña que la pisa en la esquina inferior derecha */
+.about__photos {
+  position: relative;
+  grid-column: 1 / 7;
+  padding: 0 14% 12% 0;
+}
+.about__frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--clay-deep);
+}
+.about__frame--a { aspect-ratio: 1000 / 1266; } /* = proporción real de la foto */
+.about__frame--b {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 42%;
+  aspect-ratio: 720 / 910;
+  border: clamp(6px, 0.7vw, 10px) solid var(--clay); /* recorta la foto grande y crea el efecto de capas */
+}
+
+/* El marco tiene la proporción exacta de la foto → se ve entera. El parallax mueve el marco. */
+.about__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.about__frame { will-change: transform; }
+
+.about__text {
+  grid-column: 8 / 13;
+  display: grid;
+  gap: clamp(32px, 4vw, 56px);
+  padding-bottom: 12%;
+}
+
+.about__body {
+  max-width: 40ch;
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  line-height: 1.6;
+}
+
+.about__facts { border-top: 1px solid rgb(244 239 231 / 0.45); }
+.about__facts div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  padding-block: 16px;
+  border-bottom: 1px solid rgb(244 239 231 / 0.45);
+}
+.about__facts dd { margin: 0; font-family: var(--font-serif); font-size: 1.35rem; text-align: right; }
+
+@media (max-width: 899px) {
+  .about { row-gap: 56px; }
+  .about__label,
+  .about__statement,
+  .about__grid { grid-column: 1 / 13; }
+  .about__grid { grid-template-columns: 1fr; gap: 48px; }
+  .about__photos,
+  .about__text { grid-column: 1; padding-bottom: 0; }
+  .about__photos { max-width: 480px; padding-bottom: 12%; }
+}
