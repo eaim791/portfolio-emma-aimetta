@@ -1,0 +1,172 @@
+/* ── Proyectos ───────────────────────────────────────────────────────────
+   Base = layout vertical (móvil / reduced-motion). El bloque @media de abajo activa
+   el carril horizontal; su condición debe coincidir con MQ_HORIZONTAL en src/lib/gsap.js. */
+
+.projects { background: var(--paper); }
+
+.projects__bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 var(--gutter);
+}
+.projects__counter,
+.projects__progress { display: none; }
+
+.projects__intro {
+  padding: clamp(72px, 12vw, 140px) var(--gutter) 40px;
+}
+.projects__title {
+  font-size: clamp(4.2rem, 17vw, 9.5rem);
+  white-space: pre-line; /* respeta el \n del contenido */
+}
+.projects__note { display: none; margin-top: 24px; color: var(--muted); } /* solo tiene sentido en horizontal */
+
+.projects__track {
+  display: grid;
+  gap: 56px;
+  padding: 0 var(--gutter) clamp(72px, 12vw, 140px);
+}
+.projects__viewport { padding-top: 0; }
+
+/* Tarjeta */
+.project { display: block; }
+
+.project__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--paper-2);
+}
+
+/* Imagen real: llena el marco tal cual, sin sobre-escala (no se recorta por los lados). */
+.project__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+/* Solo los marcadores de color se deslizan (parallax) y por eso son más anchos que el marco. */
+.project__img.ph {
+  inset: auto;
+  top: 0;
+  left: -9%;
+  width: 118%;
+  height: 100%;
+  will-change: transform;
+}
+
+/* Proyecto con `ratio` (proporción real de su captura): el marco la respeta y no recorta. */
+.project--ratio .project__media { aspect-ratio: var(--ar); }
+
+/* Pastilla "Ver" que aparece al pasar el cursor (transform + opacity → compositor) */
+.project__view {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  padding: 10px 14px;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+/* Con cursor propio la etiqueta "Ver" la muestra el cursor; la pastilla queda para teclado y sin cursor propio. */
+.project:focus-within .project__view,
+html:not(.has-cursor) .project:hover .project__view {
+  opacity: 1;
+  transform: none;
+}
+
+.project__info {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: baseline;
+  gap: 16px;
+  padding-top: 16px;
+}
+.project__n { color: var(--clay-deep); }
+.project__title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 2.4vw, 2.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+.project__cat { margin-top: 6px; color: var(--muted); }
+.project__year { color: var(--muted); }
+
+/* ── Scroll horizontal (desktop + movimiento permitido) ─────────────────── */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  .projects__pin {
+    display: flex;
+    flex-direction: column;
+    height: 100svh;
+    padding-top: var(--header-h);
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .projects__counter,
+  .projects__progress,
+  .projects__note { display: block; }
+
+  .projects__viewport {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .projects__track {
+    display: flex;
+    align-items: center;
+    gap: clamp(32px, 5vw, 96px);
+    width: max-content;
+    padding: 0 var(--gutter);
+    will-change: transform;
+  }
+
+  .projects__intro {
+    flex: 0 0 auto;
+    width: clamp(340px, 42vw, 720px);
+    padding: 0;
+  }
+  .projects__title { font-size: clamp(5rem, 11.5vw, 12.5rem); }
+
+  .project {
+    flex: 0 0 auto;
+    width: var(--w, 36vw);
+  }
+  .project__media {
+    aspect-ratio: auto;
+    height: min(58svh, 620px);
+  }
+  /* con `ratio`: ancho = el menor entre --w y lo que permite el alto máximo → la imagen queda entera */
+  .project--ratio { width: min(var(--w, 36vw), calc(min(58svh, 620px) * var(--ar))); }
+  .project--ratio .project__media { height: auto; aspect-ratio: var(--ar); }
+  /* Escalonado vertical: ritmo asimétrico entre tarjetas */
+  .project:nth-of-type(even) { transform: translateY(6svh); }
+  .project:nth-of-type(odd) { transform: translateY(-3svh); }
+
+  .projects__progress {
+    height: 2px;
+    margin: 0 var(--gutter) 28px;
+    background: color-mix(in srgb, var(--ink) 14%, transparent);
+    overflow: hidden;
+  }
+  .projects__progress-fill {
+    display: block;
+    height: 100%;
+    background: var(--clay);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+}
+
+/* El bloque de imagen es 118 % del marco y se desliza ±6 %: la etiqueta del placeholder
+   se separa del borde izquierdo para no recortarse durante el parallax. */
+.project__img.ph { padding: 16px 16px 16px 16%; }
