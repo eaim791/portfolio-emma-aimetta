@@ -1,0 +1,10 @@
+/* El estado se distingue por subrayado + peso (no solo por color/opacidad → contraste ≥ 4.5:1). */
+.lang { display: inline-flex; gap: 0; }
+.lang__btn {
+  padding: 10px 3px; /* área táctil mayor sin cambiar el aspecto */
+  text-decoration: underline transparent;
+  text-underline-offset: 5px;
+  transition: text-decoration-color 0.3s var(--ease-out);
+}
+.lang__btn:hover { text-decoration-color: currentColor; }
+.lang__btn[aria-pressed='true'] { font-weight: 500; text-decoration-color: currentColor; }
