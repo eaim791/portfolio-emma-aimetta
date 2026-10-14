@@ -3,7 +3,7 @@
 Portafolio personal interactivo de **Emma Aimetta** (Front-End Developer & UX/UI Designer): diseño editorial
 en tonos arcilla y marfil, scroll suave, galería de proyectos con scroll horizontal y versión en español e inglés.
 
-**Sitio en vivo:** https://portfolio-emma-aimetta.vercel.app
+**Sitio en vivo:** https://portfolioeaim.vercel.app
 
 ![Inicio del portafolio](docs/screenshots/hero.jpg)
 
