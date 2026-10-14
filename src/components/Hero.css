@@ -1,0 +1,150 @@
+/* ── Hero ────────────────────────────────────────────────────────────────
+   Asimetría: foto terracota a la izquierda (6/12), texto anclado abajo a la derecha,
+   palabra fantasma vertical por el margen derecho. Mucho espacio negativo entre meta y titular. */
+
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr); /* foto a su tamaño natural + texto ocupando el resto */
+  column-gap: clamp(40px, 7vw, 140px);
+  min-height: 100svh;
+  padding: var(--header-h) var(--gutter) var(--gutter);
+  background: var(--paper);
+  overflow: clip;
+}
+
+/* "Portfolio 2026" vertical, de abajo hacia arriba, centrado en el margen derecho. Nunca lo tapa la foto,
+   así que se lee completo. El contenedor (.hero__ghost) lo anima GSAP; la rotación va en el <span>
+   interior para que GSAP no la pise. */
+.hero__ghost {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: clamp(6px, 1.1vw, 20px);
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.hero__ghost-text {
+  display: block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg); /* vertical-rl lee de arriba hacia abajo; girado, lee de abajo hacia arriba */
+  font-size: clamp(4rem, 8.5vw, 10rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  color: var(--ghost);
+}
+
+/* Foto COMPLETA en cualquier pantalla: el marco conserva la proporción de la foto (3:4) y su tamaño
+   lo manda el alto disponible (viewport − header − margen), limitado por el ancho de la columna.
+   Así nunca hay recorte (ni cara ni silla), sea la ventana ancha y baja o alta y estrecha. */
+.hero__photo {
+  position: relative;
+  z-index: 1;
+  grid-column: 1;
+  justify-self: start;
+  align-self: start;
+  width: min(48vw, max(320px, calc((100svh - var(--header-h) - var(--gutter)) * 0.75)));
+  aspect-ratio: 3 / 4;
+  min-height: 0;
+  overflow: hidden;
+  background: #a64c2e;
+}
+.hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* el marco ya es 3:4, igual que la foto: no hay nada que cortar */
+  will-change: transform;
+}
+
+/* Cortina: cubre la foto hasta que arranca la intro (solo con movimiento permitido). */
+.hero__curtain {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  transform: scaleY(0);
+  transform-origin: top;
+  pointer-events: none;
+}
+
+/* Texto */
+.hero__copy {
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  min-height: 0;
+}
+
+.hero__meta { color: var(--muted); max-width: 30ch; }
+
+.hero__name {
+  display: flex;
+  flex-direction: column;
+  font-size: clamp(4.5rem, 12.6vw, 15rem);
+  line-height: 0.86;
+  max-width: 100%;
+  margin-left: -0.04em; /* alinea el borde óptico de la letra con la columna */
+}
+.hero__name span { display: block; }
+
+.hero__role {
+  margin-top: clamp(22px, 2.4vw, 36px);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(0.72rem, 0.92vw, 0.9rem);
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+.hero__role .serif-i {
+  font-size: 1.5em;
+  line-height: 0;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--clay-deep);
+}
+
+.hero__tagline {
+  max-width: 28ch;
+  margin-top: clamp(14px, 1.4vw, 22px);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.35rem, 1.9vw, 2rem);
+  line-height: 1.15;
+}
+
+.hero__cta { margin-top: clamp(24px, 2.6vw, 40px); }
+
+.hero__lang { align-self: flex-end; }
+
+/* Estados iniciales SOLO si habrá intro (evita parpadeo antes de que corra GSAP) */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__curtain { transform: scaleY(1); }
+  .hero [data-hero-fade],
+  .hero__ghost { opacity: 0; }
+}
+
+/* ── Móvil / tablet: columna única ─────────────────────────────────────── */
+@media (max-width: 899px) {
+  .hero {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+  .hero__photo,
+  .hero__copy { grid-column: 1; }
+  .hero__photo { width: 100%; } /* proporción 3:4 heredada: se ve entera */
+  .hero__copy { padding-left: 0; }
+  .hero__name { font-size: clamp(4.5rem, 24vw, 10rem); }
+  .hero__ghost { display: none; } /* en móvil la foto ocupa todo el ancho y el eyebrow ya dice "Portafolio 2026" */
+}
+
