@@ -1,0 +1,51 @@
+/* ──────────────────────────────────────────────────────────────────────────
+   CONTENEDOR DE SCROLL (sin barra visible)
+   ──────────────────────────────────────────────────────────────────────────
+   • La página no scrollea en <html>/<body>: lo hace `#scroller`, un contenedor a pantalla
+     completa. Así Lenis y ScrollTrigger miden un único elemento y el layout nunca depende
+     del ancho de una barra del sistema.
+   • No hay indicador de scroll (decisión de diseño): la rueda, el trackpad, el touch y el
+     teclado (flechas, PageUp/Down, Espacio, Inicio/Fin) siguen funcionando igual.
+   • Para volver a mostrar una barra: borra `scrollbar-width: none` y el bloque ::-webkit-scrollbar.
+   • Reglas de oro: no uses `100vw` (usa `100%`); alturas con `svh`/`dvh`.
+   ────────────────────────────────────────────────────────────────────────── */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* el documento no scrollea: lo hace #scroller */
+}
+
+.scroller {
+  position: fixed;
+  inset: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Edge heredado */
+}
+.scroller::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+.scroller:focus {
+  outline: none; /* foco programático (para que el teclado scrollee), no es un control */
+}
+
+.scroller__content {
+  min-height: 100%;
+  overflow-x: clip;
+}
+
+/* Requisitos de Lenis con `wrapper` propio (equivalente a lenis/dist/lenis.css) */
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}

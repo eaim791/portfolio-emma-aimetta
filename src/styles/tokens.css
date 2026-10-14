@@ -1,0 +1,24 @@
+:root {
+  /* Paleta "arcilla y marfil": cálida y sobria. Sale de los retratos (fondo siena tostado).
+     Contrastes medidos: papel sobre --clay 7.7:1 · tinta sobre papel 16:1 · --muted sobre papel 5:1. */
+  --paper: #f4efe7;      /* marfil */
+  --paper-2: #e8e0d3;    /* marfil oscuro */
+  --ghost: #ddd2c0;      /* palabra fantasma del hero: lo bastante oscura para leerse, sin competir con el texto */
+  --ink: #1b1512;        /* café espresso, no negro puro */
+  --clay: #7c3420;       /* bloques sólidos: siena tostado */
+  --clay-deep: #5e2616;  /* acentos pequeños sobre papel */
+  --clay-light: #dc9c74; /* acento legible sobre tinta o sobre --clay */
+  --muted: #6b5f53;
+
+  /* Tipografía: serif editorial para titulares, grotesca ligera para texto, mono para etiquetas */
+  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Espacio */
+  --gutter: clamp(20px, 3.4vw, 56px);
+  --header-h: 84px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+}
