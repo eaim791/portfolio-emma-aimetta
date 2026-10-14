@@ -1,0 +1,128 @@
+.skills {
+  background: var(--ink);
+  color: var(--paper);
+  padding-top: clamp(96px, 12vw, 200px);
+  overflow: clip;
+}
+
+.skills__inner {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(12px, 1.6vw, 24px);
+  padding-inline: var(--gutter);
+}
+
+/* Cabecera pegajosa a la izquierda; la lista corre a la derecha */
+.skills__head {
+  grid-column: 1 / 5;
+  align-self: start;
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  display: grid;
+  gap: 28px;
+}
+.skills__head .mono { color: var(--clay-light); }
+.skills__title { font-size: clamp(3.6rem, 7.6vw, 8.8rem); line-height: 0.94; white-space: pre-line; }
+.skills__intro { max-width: 34ch; opacity: 0.75; }
+
+.skills__list { grid-column: 6 / 13; border-top: 1px solid rgb(243 238 230 / 0.28); }
+
+/* Fila: el relleno rojo sube desde abajo con transform (60 fps) y la tinta pasa a negro */
+.skill {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  column-gap: 8px;
+  row-gap: 18px;
+  padding: clamp(28px, 3.2vw, 48px) 0;
+  border-bottom: 1px solid rgb(243 238 230 / 0.28);
+  isolation: isolate;
+  transition: color 0.45s var(--ease-out);
+}
+.skill::before {
+  content: '';
+  position: absolute;
+  inset: 0 calc(var(--gutter) * -1) 0 -24px;
+  z-index: -1;
+  background: var(--clay);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.55s var(--ease-out);
+}
+.skill:hover,
+.skill:focus-within { color: var(--paper); }
+.skill:hover::before,
+.skill:focus-within::before { transform: scaleY(1); }
+
+.skill__n { padding-top: 0.7em; opacity: 0.6; }
+.skill__title { font-size: clamp(2.2rem, 4.2vw, 4.8rem); line-height: 1; }
+.skill__body { grid-column: 2; display: grid; gap: 20px; }
+.skill__desc { max-width: 52ch; opacity: 0.8; }
+
+.skill__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  padding: 6px 10px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  opacity: 0.9;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* Marquee de tecnologías complementarias — solo transform */
+.marquee {
+  margin-top: clamp(80px, 10vw, 160px);
+  padding-block: 28px clamp(28px, 4vw, 56px);
+  border-top: 1px solid rgb(243 238 230 / 0.28);
+  background: var(--ink);
+  color: var(--clay-light); /* separa el marquee del bloque de arcilla de Contacto */
+}
+.marquee__label { padding: 0 var(--gutter) 12px; color: var(--paper); opacity: 0.7; }
+.marquee__viewport { overflow: hidden; }
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 48s linear infinite;
+  will-change: transform;
+}
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 48px);
+  padding-right: clamp(20px, 3vw, 48px);
+  font-size: clamp(3rem, 7.2vw, 7.4rem);
+  font-style: italic;
+  white-space: nowrap;
+}
+.marquee__dot {
+  width: 0.14em;
+  height: 0.14em;
+  background: currentColor;
+  transform: rotate(45deg); /* rombo */
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+  .marquee__viewport { overflow-x: auto; }
+}
+
+@media (max-width: 899px) {
+  .skills__head { grid-column: 1 / 13; position: static; margin-bottom: 56px; }
+  .skills__list { grid-column: 1 / 13; }
+  .skill { grid-template-columns: 2.4rem 1fr; }
+  .skill::before { inset: 0 calc(var(--gutter) * -1); }
+}
