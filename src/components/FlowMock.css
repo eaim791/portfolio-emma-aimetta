@@ -1,0 +1,16 @@
+.flow { width: 100%; }
+.flow__svg { display: block; width: 100%; height: auto; overflow: visible; }
+.flow__line { fill: none; stroke: currentColor; stroke-width: 1; stroke-dasharray: 3 5; opacity: 0.55; }
+.flow__node { fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linejoin: round; animation: flowPulse 3.4s ease-in-out infinite; }
+.flow__node--2 { animation-delay: 1.5s; }
+.flow__node--3 { animation-delay: 3.1s; }
+.flow__dot { fill: var(--gold); }
+.flow__labels { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 4px; text-align: center; opacity: 0.8; font-size: 0.62rem; }
+@keyframes flowPulse {
+  0%, 100% { fill: transparent; }
+  10%, 22% { fill: var(--gold); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flow__dot { display: none; }
+  .flow__node { animation: none; }
+}

@@ -1,0 +1,42 @@
+/* Escenario de las mini interfaces: 4:3, unidades de contenedor (cqw) para escalar con la tarjeta. */
+.aa {
+  position: relative;
+  overflow: hidden;
+  container-type: inline-size;
+  aspect-ratio: 4 / 3;
+  background: var(--graphite);
+  color: var(--paper);
+  font: 400 max(10px, 3cqw) var(--font-sans);
+}
+.aa > *, .aa-inv > * { box-sizing: border-box; }
+.aa-mono { position: absolute; font: 400 max(9px, 2.3cqw) var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; }
+.aa-bub { position: absolute; padding: 2cqw 3cqw; border-radius: 3cqw; font-size: max(10px, 3cqw); line-height: 1.25; }
+.aa-typing { position: absolute; }
+.aa-typing i { display: inline-block; width: 2cqw; height: 2cqw; margin: 0 0.6cqw; border-radius: 50%; background: var(--paper); animation: aaBounce 1s infinite; }
+.aa-typing i:nth-child(2) { animation-delay: 0.15s; }
+.aa-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes aaBounce { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-1.2cqw); opacity: 1; } }
+.aa-chip { position: absolute; padding: 1.6cqw 3cqw; border-radius: 9cqw; background: var(--gold); color: var(--graphite); font: 500 max(9px, 2.5cqw) var(--font-sans); }
+
+/* factura */
+.aa-inv { position: absolute; left: 11cqw; top: 8cqw; width: 46cqw; height: 58cqw; padding: 4cqw; border-radius: 1.5cqw; background: var(--paper); color: var(--ink); }
+.aa-row { display: flex; justify-content: space-between; margin-top: 2.4cqw; font-size: max(9px, 2.8cqw); }
+.aa-row.r1 { margin-top: 5cqw; }
+.aa-row--tot { margin-top: 5cqw; padding-top: 2cqw; border-top: 1px solid var(--ink); font-weight: 500; }
+.aa-stampwrap { position: absolute; right: 7cqw; top: 36cqw; transform: rotate(-10deg); }
+.aa-stamp { padding: 1.2cqw 3cqw; border: 0.8cqw solid var(--gold); border-radius: 1cqw; color: var(--gold); font: 500 max(10px, 3.4cqw) var(--font-sans); letter-spacing: 0.1em; }
+
+/* tablero */
+.aa-colh { top: 8cqw; opacity: 0.7; }
+.aa-col { position: absolute; top: 15cqw; width: 27cqw; height: 52cqw; border-radius: 1.4cqw; background: color-mix(in srgb, var(--paper) 7%, transparent); }
+.aa-kc { position: absolute; width: 23cqw; padding: 2cqw 2.4cqw; border-radius: 1.2cqw; background: var(--paper); color: var(--ink); font-size: max(9px, 2.6cqw); line-height: 1.25; }
+
+/* calendario */
+.aa-cal { position: absolute; left: 7cqw; top: 17cqw; width: 86cqw; height: 30cqw; }
+.aa-cell { position: absolute; width: 10.4cqw; height: 9cqw; border-radius: 1cqw; background: color-mix(in srgb, var(--paper) 10%, transparent); }
+
+/* barras (inventario y reportes) */
+.aa-bars { position: absolute; left: 10cqw; top: 10cqw; width: 80cqw; height: 42cqw; border-bottom: 1px solid color-mix(in srgb, var(--paper) 40%, transparent); }
+.aa-bars--rep { top: 12cqw; width: 62cqw; height: 40cqw; }
+.aa-br { position: absolute; bottom: 0; width: 13cqw; border-radius: 0.8cqw 0.8cqw 0 0; }
+.aa-big { position: absolute; right: 8cqw; top: 14cqw; color: var(--gold); font: italic 8cqw/1 var(--font-serif); }
