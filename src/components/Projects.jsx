@@ -1,7 +1,8 @@
 import { useRef } from 'react'
-import { gsap, useGSAP, scroller, MQ_HORIZONTAL } from '../lib/gsap'
+import { gsap, ScrollTrigger, useGSAP, scroller, MQ_HORIZONTAL } from '../lib/gsap'
 import { useLang } from '../lib/i18n'
 import { useSection } from '../hooks/useSection'
+import { useNav } from '../lib/nav'
 import { useLenis } from './SmoothScroll'
 import Placeholder from './Placeholder'
 import './Projects.css'
@@ -18,6 +19,7 @@ const pad = (n) => String(n).padStart(2, '0')
  */
 export default function Projects() {
   const { t } = useLang()
+  const { navigate } = useNav()
   const lenis = useLenis()
   const root = useRef(null)
   const pin = useRef(null)
@@ -82,7 +84,38 @@ export default function Projects() {
           )
         })
 
+        /* Foco central: la tarjeta que pasa por el centro de la pantalla crece y se ve nítida; las de los lados se
+           achican y se apagan un poco. Solo `scale` y `opacity` (compositor) y solo mientras la galería está en pantalla.
+           Se usa la propiedad CSS `scale` (independiente de `transform`) para no pisar el escalonado vertical de las tarjetas. */
+        const cards = gsap.utils.toArray('.project', trackEl)
+        let onScreen = false
+        const watch = ScrollTrigger.create({
+          trigger: pin.current,
+          start: 'top bottom',
+          end: 'bottom top',
+          onToggle: (self) => (onScreen = self.isActive),
+        })
+        const tick = () => {
+          if (!onScreen) return
+          const half = pin.current.clientWidth / 2
+          const rects = cards.map((c) => c.getBoundingClientRect()) // primero se lee todo…
+          cards.forEach((c, i) => {
+            // …y luego se escribe todo (evita relayouts intercalados)
+            const d = Math.abs((rects[i].left + rects[i].width / 2 - half) / half)
+            const a = Math.min(Math.max(d - 0.15, 0) / 0.85, 1) // 0 en la zona central, 1 en los bordes
+            c.style.scale = (1 - 0.14 * a).toFixed(3)
+            c.style.opacity = (1 - 0.55 * a).toFixed(3)
+          })
+        }
+        gsap.ticker.add(tick)
+
         return () => {
+          gsap.ticker.remove(tick)
+          watch.kill()
+          cards.forEach((c) => {
+            c.style.scale = ''
+            c.style.opacity = ''
+          })
           travelRef.current = null
         }
       })
@@ -111,7 +144,7 @@ export default function Projects() {
     <section id="work" className="projects" ref={root}>
       <div className="projects__pin" ref={pin}>
         <div className="projects__bar mono">
-          <span>(02) {t.projects.label}</span>
+          <span className="eyebrow">02 — {t.projects.label}</span>
           <span className="projects__counter" aria-hidden="true">
             {t.projects.counterLabel} <b ref={counter}>01</b> / {pad(items.length)}
           </span>
@@ -121,11 +154,23 @@ export default function Projects() {
           <div className="projects__track" ref={track}>
             <div className="projects__intro">
               <h2 className="projects__title display" data-split>
-                {t.projects.title}
+                {t.projects.title.split(/\n/).map((l, i, a) => (
+                  <span key={l} className={i === a.length - 1 ? 'it' : undefined}>{l}</span>
+                ))}
               </h2>
               <p className="projects__note mono" data-reveal>
                 {t.projects.note} <span aria-hidden="true">→</span>
               </p>
+              <a
+                className="btn projects__all"
+                href="#/proyectos"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigate('projects')
+                }}
+              >
+                {t.projects.all} <span aria-hidden="true">↗</span>
+              </a>
             </div>
 
             {items.map((p, i) => {

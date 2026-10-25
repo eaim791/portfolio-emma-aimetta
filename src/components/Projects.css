@@ -18,7 +18,7 @@
 }
 .projects__title {
   font-size: clamp(4.2rem, 17vw, 9.5rem);
-  white-space: pre-line; /* respeta el \n del contenido */
+  white-space: nowrap;
 }
 .projects__note { display: none; margin-top: 24px; color: var(--muted); } /* solo tiene sentido en horizontal */
 
@@ -58,6 +58,10 @@
   will-change: transform;
 }
 
+/* Foto real: zoom lento al pasar el cursor (transform → compositor) */
+.project__img:not(.ph) { transition: transform 1.2s var(--ease-out); }
+.project:hover .project__img:not(.ph) { transform: scale(1.045); }
+
 /* Proyecto con `ratio` (proporción real de su captura): el marco la respeta y no recorta. */
 .project--ratio .project__media { aspect-ratio: var(--ar); }
 
@@ -88,7 +92,7 @@ html:not(.has-cursor) .project:hover .project__view {
   gap: 16px;
   padding-top: 16px;
 }
-.project__n { color: var(--clay-deep); }
+.project__n { color: var(--gold-deep); }
 .project__title {
   font-family: var(--font-serif);
   font-weight: 400;
@@ -161,7 +165,7 @@ html:not(.has-cursor) .project:hover .project__view {
   .projects__progress-fill {
     display: block;
     height: 100%;
-    background: var(--clay);
+    background: var(--ink);
     transform: scaleX(0);
     transform-origin: left;
   }
@@ -170,3 +174,7 @@ html:not(.has-cursor) .project:hover .project__view {
 /* El bloque de imagen es 118 % del marco y se desliza ±6 %: la etiqueta del placeholder
    se separa del borde izquierdo para no recortarse durante el parallax. */
 .project__img.ph { padding: 16px 16px 16px 16%; }
+
+.projects__title span { display: block; }
+.projects__title .it { margin-left: 0.5em; }
+.projects__all { margin-top: 28px; }

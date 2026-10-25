@@ -1,0 +1,56 @@
+/** Página "Todos los proyectos": textos ES/EN y la categoría (filtro) de cada proyecto por `id`.
+ *  Los proyectos en sí viven en src/data/content.js (projectMeta / projectText).
+ *  El que tenga `feature: true` se muestra como banda destacada y no entra en la cuadrícula. */
+export const projectKinds = {
+  mdm: { kind: 'web' },
+  aigo: { kind: 'ecommerce', feature: true },
+  agency: { kind: 'panel' },
+  lystra: { kind: 'ai' },
+}
+
+export const projectsUi = {
+  es: {
+    eyebrow: 'Archivo completo',
+    title: 'Todos los\nproyectos',
+    lead: 'Sitios, tiendas, paneles y herramientas de IA. Algunos son públicos; los privados se muestran solo como vista previa.',
+    marqueeLabel: 'Proyectos',
+    featureEyebrow: 'Proyecto propio',
+    featureTitle: ['AI', 'GO'],
+    featureText: 'Una tienda de ropa que construí junto a un amigo. Nuestra marca, nuestro catálogo, nuestras reglas.',
+    featureTag: 'Próximamente',
+    featureNote: 'Hecha con un amigo · Vista previa privada',
+    filtersLabel: 'Filtrar proyectos',
+    filters: { all: 'Todos', web: 'Webs', ai: 'IA', panel: 'Paneles' },
+    open: 'Abrir sitio',
+    privateTag: 'Vista previa privada',
+    liveTag: 'En línea',
+    empty: 'Aquí no hay proyectos todavía.',
+    closeTitle: '¿Tienes un proyecto en mente?',
+    closeText: 'Cuéntame la idea y vemos cómo hacerla real.',
+    closeButton: 'Escríbeme',
+    back: 'Volver al inicio',
+    subject: 'Quiero hablar de un proyecto',
+  },
+  en: {
+    eyebrow: 'Full archive',
+    title: 'All\nprojects',
+    lead: 'Websites, stores, dashboards and AI tools. Some are public; private ones are shown as a preview only.',
+    marqueeLabel: 'Projects',
+    featureEyebrow: 'Our own project',
+    featureTitle: ['AI', 'GO'],
+    featureText: 'A clothing store I built together with a friend. Our brand, our catalogue, our rules.',
+    featureTag: 'Coming soon',
+    featureNote: 'Made with a friend · Private preview',
+    filtersLabel: 'Filter projects',
+    filters: { all: 'All', web: 'Websites', ai: 'AI', panel: 'Dashboards' },
+    open: 'Open site',
+    privateTag: 'Private preview',
+    liveTag: 'Live',
+    empty: 'No projects here yet.',
+    closeTitle: 'Have a project in mind?',
+    closeText: 'Tell me the idea and let’s make it real.',
+    closeButton: 'Write to me',
+    back: 'Back to home',
+    subject: 'I want to talk about a project',
+  },
+}
