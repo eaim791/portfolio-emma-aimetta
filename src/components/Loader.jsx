@@ -108,8 +108,8 @@ export default function Loader() {
     })
 
     const fontsReady = Promise.all([
-      document.fonts?.load('1em "Instrument Serif"'),
-      document.fonts?.load('italic 1em "Instrument Serif"'),
+      document.fonts?.load('1em "Bodoni Moda"'),
+      document.fonts?.load('italic 1em "Bodoni Moda"'),
       document.fonts?.ready,
     ]).catch(() => {})
     const photoReady = img.current?.decode ? img.current.decode().catch(() => {}) : Promise.resolve()

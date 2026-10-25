@@ -1,5 +1,5 @@
 .skills {
-  background: var(--ink);
+  background: var(--graphite);
   color: var(--paper);
   padding-top: clamp(96px, 12vw, 200px);
   overflow: clip;
@@ -21,13 +21,13 @@
   display: grid;
   gap: 28px;
 }
-.skills__head .mono { color: var(--clay-light); }
-.skills__title { font-size: clamp(3.6rem, 7.6vw, 8.8rem); line-height: 0.94; white-space: pre-line; }
+.skills__head .mono { color: var(--gold); }
+.skills__title { font-size: clamp(3.06rem, 6.46vw, 7.48rem); line-height: 0.94; white-space: pre-line; }
 .skills__intro { max-width: 34ch; opacity: 0.75; }
 
-.skills__list { grid-column: 6 / 13; border-top: 1px solid rgb(243 238 230 / 0.28); }
+.skills__list { grid-column: 6 / 13; border-top: 1px solid rgb(238 234 223 / 0.28); }
 
-/* Fila: el relleno rojo sube desde abajo con transform (60 fps) y la tinta pasa a negro */
+/* Fila: al pasar el cursor, un relleno de hueso sube desde abajo (transform, 60 fps) y el texto pasa a tinta */
 .skill {
   position: relative;
   display: grid;
@@ -35,7 +35,7 @@
   column-gap: 8px;
   row-gap: 18px;
   padding: clamp(28px, 3.2vw, 48px) 0;
-  border-bottom: 1px solid rgb(243 238 230 / 0.28);
+  border-bottom: 1px solid rgb(238 234 223 / 0.28);
   isolation: isolate;
   transition: color 0.45s var(--ease-out);
 }
@@ -44,13 +44,13 @@
   position: absolute;
   inset: 0 calc(var(--gutter) * -1) 0 -24px;
   z-index: -1;
-  background: var(--clay);
+  background: var(--paper);
   transform: scaleY(0);
   transform-origin: bottom;
   transition: transform 0.55s var(--ease-out);
 }
 .skill:hover,
-.skill:focus-within { color: var(--paper); }
+.skill:focus-within { color: var(--ink); }
 .skill:hover::before,
 .skill:focus-within::before { transform: scaleY(1); }
 
@@ -73,37 +73,33 @@
 .marquee {
   margin-top: clamp(80px, 10vw, 160px);
   padding-block: 28px clamp(28px, 4vw, 56px);
-  border-top: 1px solid rgb(243 238 230 / 0.28);
-  background: var(--ink);
-  color: var(--clay-light); /* separa el marquee del bloque de arcilla de Contacto */
+  border-top: 1px solid rgb(238 234 223 / 0.28);
+  background: var(--graphite);
+  color: var(--gold);
 }
 .marquee__label { padding: 0 var(--gutter) 12px; color: var(--paper); opacity: 0.7; }
 .marquee__viewport { overflow: hidden; }
 .marquee__track {
   display: flex;
   width: max-content;
-  animation: marquee 48s linear infinite;
-  will-change: transform;
+  will-change: transform; /* x lo escribe useMarquee en cada frame */
 }
 .marquee__item {
   display: inline-flex;
   align-items: center;
   gap: clamp(20px, 3vw, 48px);
   padding-right: clamp(20px, 3vw, 48px);
-  font-size: clamp(3rem, 7.2vw, 7.4rem);
+  font-size: clamp(2.55rem, 6.12vw, 6.29rem);
   font-style: italic;
   white-space: nowrap;
+  line-height: 1.22; /* holgura para las descendentes (g, p, y, j): el viewport recorta con overflow:hidden */
+  padding-bottom: 0.06em;
 }
 .marquee__dot {
   width: 0.14em;
   height: 0.14em;
   background: currentColor;
   transform: rotate(45deg); /* rombo */
-}
-.marquee:hover .marquee__track { animation-play-state: paused; }
-
-@keyframes marquee {
-  to { transform: translate3d(-50%, 0, 0); }
 }
 
 .sr-only {

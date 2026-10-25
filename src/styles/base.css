@@ -4,7 +4,9 @@
   box-sizing: border-box;
 }
 
+/* Bodoni Moda afina sus trazos cuanto más grande es el texto (eje opsz 6–96). Se fija bajo para que las líneas finas se vean. */
 html {
+  font-variation-settings: 'opsz' 11;
   -webkit-text-size-adjust: 100%;
   background: var(--ink); /* evita destello blanco en overscroll */
 }
@@ -33,7 +35,7 @@ body::after {
   inset: 0;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
@@ -87,6 +89,14 @@ main:focus { outline: none; } /* destino del skip-link (tabindex -1) */
 }
 .split-mask { display: block; }
 
+/* SplitText recorta cada línea con overflow:clip. Con interlineado < 1 y cursivas, eso mordía la parte baja de
+   la J/g/y/p y el voladizo de la A cursiva. El relleno agranda la ventana de recorte y el margen negativo
+   deja el texto exactamente donde estaba (no cambia el layout). */
+.split-line-mask {
+  padding: 0.16em 0.2em 0.24em;
+  margin: -0.16em -0.2em -0.24em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -97,11 +107,11 @@ main:focus { outline: none; } /* destino del skip-link (tabindex -1) */
 
 /* ── Utilidades de diseño ───────────────────────────────────────────────── */
 
-/* Titular editorial: serif Instrument Serif, tamaño grande, tracking cerrado. */
+/* Titular editorial: serif Bodoni Moda, tamaño grande, tracking cerrado. */
 .display {
   font-family: var(--font-serif);
-  font-weight: 400;
-  line-height: 0.92;
+  font-weight: 500;
+  line-height: 0.95;
   letter-spacing: -0.025em;
 }
 .it { font-style: italic; }
@@ -131,3 +141,61 @@ main:focus { outline: none; } /* destino del skip-link (tabindex -1) */
 }
 .btn__arrow { display: inline-block; transition: transform 0.35s var(--ease-out); }
 .btn:hover .btn__arrow { transform: translateY(3px); }
+
+/* Variante para fondos oscuros (grafito) */
+.btn--light:hover { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+/* Variante rellena (acción principal) */
+.btn--solid { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.btn--solid:hover { background: transparent; color: var(--ink); }
+.btn--solid.btn--light { background: var(--paper); border-color: var(--paper); color: var(--ink); }
+.btn--solid.btn--light:hover { background: transparent; color: var(--paper); }
+
+/* Etiqueta pequeña con filete, para encabezar secciones */
+.eyebrow { display: flex; align-items: center; gap: 14px; }
+.eyebrow::before { content: ''; width: 28px; height: 1px; background: currentColor; opacity: 0.6; }
+
+/* ── Progreso de lectura y cortina de transición entre páginas ──────────── */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 95;
+  background: var(--ink);
+  transition: background-color 0.4s var(--ease-out);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* Sobre grafito la línea pasa a hueso (el tema lo fija useSection en html[data-header]) */
+html[data-header='ink'] .progress { background: var(--paper); }
+
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 105;
+  display: grid;
+  place-items: center;
+  background: var(--graphite);
+  color: var(--paper);
+  visibility: hidden;
+  pointer-events: none;
+  /* Sin transform aquí: GSAP la coloca con yPercent. Un translateY(100%) en CSS se lee como px y sumaba otro 100 %,
+     dejando la cortina fuera de pantalla justo cuando debía tapar el cambio de página. */
+}
+.curtain::after {
+  content: 'Emma Aimetta';
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.6rem, 3vw, 2.6rem);
+  letter-spacing: -0.01em;
+  opacity: 0.9;
+}
+
+/* Imágenes con revelado: ocultas hasta que GSAP las abre (solo con movimiento permitido). */
+@media (prefers-reduced-motion: no-preference) {
+  [data-img-reveal] { clip-path: inset(0% 0% 100% 0%); }
+  [data-img-reveal='up'] { clip-path: inset(100% 0% 0% 0%); }
+}

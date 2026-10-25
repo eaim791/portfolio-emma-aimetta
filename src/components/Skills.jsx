@@ -1,12 +1,16 @@
 import { useRef } from 'react'
 import { useLang } from '../lib/i18n'
 import { useSection } from '../hooks/useSection'
+import { useMarquee } from '../hooks/useMarquee'
 import './Skills.css'
 
 export default function Skills() {
   const { t } = useLang()
   const root = useRef(null)
   useSection(root, { theme: 'ink' })
+  const viewport = useRef(null)
+  const track = useRef(null)
+  useMarquee(viewport, track) // velocidad base + aceleración con el scroll
 
   const { skills } = t
   // El carril del marquee se duplica: al desplazar -50 % el bucle es imperceptible.
@@ -16,8 +20,8 @@ export default function Skills() {
     <section id="skills" className="skills" ref={root}>
       <div className="skills__inner">
         <header className="skills__head">
-          <p className="mono" data-reveal>
-            (03) {skills.label}
+          <p className="mono eyebrow" data-reveal>
+            04 — {skills.label}
           </p>
           <h2 className="skills__title display" data-split>
             {skills.title}
@@ -49,8 +53,8 @@ export default function Skills() {
 
       <div className="marquee" role="group" aria-label={skills.marqueeLabel}>
         <p className="marquee__label mono">{skills.marqueeLabel}</p>
-        <div className="marquee__viewport" aria-hidden="true">
-          <div className="marquee__track">
+        <div className="marquee__viewport" ref={viewport} aria-hidden="true">
+          <div className="marquee__track" ref={track}>
             {loop.map((tech, i) => (
               <span className="marquee__item display" key={`${tech}-${i}`}>
                 {tech}

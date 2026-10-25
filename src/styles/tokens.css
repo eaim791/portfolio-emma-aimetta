@@ -1,19 +1,22 @@
 :root {
-  /* Paleta "arcilla y marfil": cálida y sobria. Sale de los retratos (fondo siena tostado).
-     Contrastes medidos: papel sobre --clay 7.7:1 · tinta sobre papel 16:1 · --muted sobre papel 5:1. */
-  --paper: #f4efe7;      /* marfil */
-  --paper-2: #e8e0d3;    /* marfil oscuro */
-  --ghost: #ddd2c0;      /* palabra fantasma del hero: lo bastante oscura para leerse, sin competir con el texto */
-  --ink: #1b1512;        /* café espresso, no negro puro */
-  --clay: #7c3420;       /* bloques sólidos: siena tostado */
-  --clay-deep: #5e2616;  /* acentos pequeños sobre papel */
-  --clay-light: #dc9c74; /* acento legible sobre tinta o sobre --clay */
-  --muted: #6b5f53;
+  /* Paleta "oliva y lino": lino claro, verde oliva apagado, verde casi negro y un acento ámbar.
+     Contrastes medidos: tinta/lino 13.4:1 · tinta/oliva 7.8:1 · lino/oscuro 12.2:1 · gris/lino 5.8:1 · ámbar oscuro/lino 5.3:1 · ámbar/oscuro 6.1:1. */
+  --paper: #eeeadf;      /* lino: fondo principal */
+  --paper-2: #e2ddcd;    /* lino oscuro: rieles y fondos de tarjeta */
+  --ink: #1f2217;        /* tinta: texto (verde casi negro) */
+  --ink-soft: #33362a;   /* texto secundario sobre oliva (6.0:1) */
+  --stone: #b8b695;      /* oliva claro: bloques de color. DEBE coincidir con STONE de scripts/process-images.py */
+  --graphite: #262a1b;   /* verde profundo: bloques oscuros */
+  --gold: #d99a52;       /* ámbar: acento sobre verde profundo */
+  --gold-deep: #7a5a1f;  /* ámbar oscuro: acento sobre lino (5.3:1) */
+  --muted: #585b49;      /* texto secundario sobre lino */
+  --ghost: #dcd8c6;      /* palabra fantasma del inicio */
+  --line: rgb(31 34 23 / 0.16); /* filetes finos sobre claro */
 
   /* Tipografía: serif editorial para titulares, grotesca ligera para texto, mono para etiquetas */
-  --font-sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
-  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
-  --font-mono: 'DM Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-sans: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-serif: 'Bodoni Moda', 'Didot', 'Times New Roman', serif;
+  --font-mono: 'Albert Sans', 'Helvetica Neue', Arial, sans-serif;
 
   /* Espacio */
   --gutter: clamp(20px, 3.4vw, 56px);

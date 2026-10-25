@@ -53,7 +53,7 @@ export default function Hero() {
           )
 
           root.current.querySelectorAll('[data-split]').forEach((el, i) => {
-            splitReveal(el, { delay: (withLoader ? 0.05 : 0.75) + i * 0.12, stagger: 0.1 })
+            splitReveal(el, { delay: (withLoader ? 0.05 : 0.75) + i * 0.12, stagger: el.dataset.split === 'chars' ? undefined : 0.1 })
           })
         }
 
@@ -97,7 +97,7 @@ export default function Hero() {
         </p>
 
         <div className="hero__main">
-          <h1 className="hero__name display" data-split>
+          <h1 className="hero__name display" data-split="chars">
             <span>Emma</span>
             <span className="it">Aimetta</span>
           </h1>

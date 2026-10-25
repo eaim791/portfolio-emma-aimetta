@@ -35,7 +35,7 @@
   left: 0;
   top: 0;
   overflow: hidden;
-  background: #a64c2e; /* terracota de la foto: el marco se lee sólido y la foto emerge dentro */
+  background: var(--stone); /* mismo tono del fondo de la foto: el marco se lee sólido y la foto emerge dentro */
   will-change: transform;
 }
 .loader__frame img {

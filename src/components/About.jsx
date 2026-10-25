@@ -8,12 +8,12 @@ import './About.css'
 export default function About() {
   const { t } = useLang()
   const root = useRef(null)
-  useSection(root, { theme: 'clay' })
+  useSection(root, { theme: 'stone' })
 
   return (
     <section id="about" className="about" ref={root}>
-      <p className="about__label mono" data-reveal>
-        (01) {t.about.label}
+      <p className="about__label mono eyebrow" data-reveal>
+        01 — {t.about.label}
       </p>
 
       {/* Se enciende palabra a palabra con el scroll (SplitText + scrub) */}
@@ -22,34 +22,20 @@ export default function About() {
       </p>
 
       <div className="about__grid">
-        {/* FOTOS — collage asimétrico. Las rutas se cambian en src/data/content.js
-            (site.aboutPhoto y site.aboutPhoto2; archivos en public/img/, ratio 4:5).
-            `data-parallax-y` (en cada marco) los desliza a distinta velocidad al hacer scroll,
-            sin recortar la foto. */}
-        <div className="about__photos">
-          <figure className="about__frame about__frame--a" data-parallax-y="3">
-            <Placeholder
-              className="about__img"
-              src={site.aboutPhoto}
-              alt={t.about.photoAlt}
-              color="#1b1512"
-              label={t.about.photoLabel}
-              width="1000"
-              height="1266"
-            />
-          </figure>
-          <figure className="about__frame about__frame--b" data-parallax-y="8">
-            <Placeholder
-              className="about__img"
-              src={site.aboutPhoto2}
-              alt={t.about.photoAlt2}
-              color="#5e2616"
-              label="Foto · about-emma-2.jpg"
-              width="720"
-              height="910"
-            />
-          </figure>
-        </div>
+        {/* FOTO — ruta en src/data/content.js → site.aboutPhoto (public/img/about-emma.jpg, 772×976).
+            El marco tiene la proporción exacta de la foto (se ve entera); la ventana se abre al entrar
+            en pantalla (data-img-reveal) y el marco se desliza suavemente con el scroll (data-parallax-y). */}
+        <figure className="about__frame" data-img-reveal data-parallax-y="3">
+          <Placeholder
+            className="about__img"
+            src={site.aboutPhoto}
+            alt={t.about.photoAlt}
+            color="#8f8d6e"
+            label={t.about.photoLabel}
+            width="772"
+            height="976"
+          />
+        </figure>
 
         <div className="about__text">
           <p className="about__body" data-reveal>

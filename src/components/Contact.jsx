@@ -14,7 +14,7 @@ export default function Contact() {
   const root = useRef(null)
   const mail = useRef(null)
 
-  useSection(root, { theme: 'clay' })
+  useSection(root, { theme: 'stone' })
   useMagnetic(mail, 0.18)
 
   const socials = site.socials.filter((s) => s.href)
@@ -23,23 +23,23 @@ export default function Contact() {
     <section id="contact" className="contact" ref={root}>
       {/* RETRATO GRANDE — sus bordes izquierdo y superior se difuminan hacia el color del bloque.
           Cambia la ruta en src/data/content.js → site.contactPhoto (proporción 772×976). */}
-      <figure className="contact__portrait">
+      <figure className="contact__portrait" data-img-reveal="up">
         <Placeholder
           className="contact__img"
           src={site.contactPhoto}
           alt={t.contact.photoAlt}
-          color="#5e2616"
+          color="#8f8d6e"
           label="Foto · contact-emma.jpg"
           width="772"
           height="976"
         />
       </figure>
 
-      <p className="mono" data-reveal>
-        (04) {t.contact.label}
+      <p className="mono eyebrow" data-reveal>
+        05 — {t.contact.label}
       </p>
 
-      <h2 className="contact__title display" data-split>
+      <h2 className="contact__title display" data-split="chars">
         {t.contact.title}
       </h2>
 

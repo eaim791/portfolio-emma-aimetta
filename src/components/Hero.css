@@ -32,7 +32,7 @@
   display: block;
   writing-mode: vertical-rl;
   transform: rotate(180deg); /* vertical-rl lee de arriba hacia abajo; girado, lee de abajo hacia arriba */
-  font-size: clamp(4rem, 8.5vw, 10rem);
+  font-size: clamp(2.6rem, min(6.2vw, 8.4svh), 8rem); /* limitado también por el alto: el texto vertical nunca sale de la página */
   line-height: 1;
   letter-spacing: -0.01em;
   white-space: nowrap;
@@ -52,7 +52,7 @@
   aspect-ratio: 3 / 4;
   min-height: 0;
   overflow: hidden;
-  background: #a64c2e;
+  background: var(--stone); /* mismo tono del fondo recoloreado de la foto */
 }
 .hero__img {
   position: absolute;
@@ -90,12 +90,14 @@
 .hero__name {
   display: flex;
   flex-direction: column;
-  font-size: clamp(4.5rem, 12.6vw, 15rem);
-  line-height: 0.86;
+  font-size: clamp(3.6rem, 10vw, 13rem);
+  line-height: 0.9;
   max-width: 100%;
+  white-space: nowrap; /* Bodoni es más ancha: el apellido nunca debe partirse en dos líneas */
   margin-left: -0.04em; /* alinea el borde óptico de la letra con la columna */
 }
 .hero__name span { display: block; }
+.hero__name .it { margin-left: 0.28em; } /* el apellido se desplaza como en la referencia */
 
 .hero__role {
   margin-top: clamp(22px, 2.4vw, 36px);
@@ -111,7 +113,7 @@
   line-height: 0;
   letter-spacing: 0;
   text-transform: none;
-  color: var(--clay-deep);
+  color: var(--gold-deep);
 }
 
 .hero__tagline {
@@ -144,7 +146,7 @@
   .hero__copy { grid-column: 1; }
   .hero__photo { width: 100%; } /* proporción 3:4 heredada: se ve entera */
   .hero__copy { padding-left: 0; }
-  .hero__name { font-size: clamp(4.5rem, 24vw, 10rem); }
+  .hero__name { font-size: clamp(3.6rem, 20vw, 9rem); }
   .hero__ghost { display: none; } /* en móvil la foto ocupa todo el ancho y el eyebrow ya dice "Portafolio 2026" */
 }
 

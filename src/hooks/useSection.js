@@ -1,5 +1,5 @@
 import { gsap, ScrollTrigger, useGSAP, MQ_MOTION_OK } from '../lib/gsap'
-import { splitReveal, wordsScrub, fadeUp } from '../lib/reveal'
+import { splitReveal, wordsScrub, fadeUp, imgReveal } from '../lib/reveal'
 
 const setHeaderTheme = (theme) => {
   document.documentElement.dataset.header = theme
@@ -7,11 +7,12 @@ const setHeaderTheme = (theme) => {
 
 /**
  * Comportamiento común de cada sección:
- *  1. `theme`: cuando la sección está bajo el header, este cambia de color (paper | clay | ink).
+ *  1. `theme`: cuando la sección está bajo el header, este cambia de color (paper | stone | ink).
  *  2. Revelados declarativos por atributo, solo si el usuario acepta movimiento:
  *       [data-split]   → texto por líneas con máscara
  *       [data-words]   → frase que se enciende palabra a palabra (scrub)
  *       [data-reveal]  → entrada suave de un bloque
+ *       [data-img-reveal] → la ventana de una imagen se abre (clip-path) y la foto se asienta
  *       [data-parallax-y] → parallax vertical (transform) de imágenes
  *
  * Solo se activa la clase de tema al ENTRAR en la sección, así un cálculo de pin
@@ -42,6 +43,7 @@ export function useSection(scope, { theme, reveals = true } = {}) {
         )
         root.querySelectorAll('[data-words]').forEach(wordsScrub)
         root.querySelectorAll('[data-reveal]').forEach(fadeUp)
+        root.querySelectorAll('[data-img-reveal]').forEach(imgReveal)
 
         // Parallax vertical suave: data-parallax-y="6" → la capa se desplaza de −6 % a +6 % de su alto
         root.querySelectorAll('[data-parallax-y]').forEach((el) => {

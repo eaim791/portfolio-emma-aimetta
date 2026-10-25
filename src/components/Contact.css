@@ -4,14 +4,14 @@
   flex-direction: column;
   min-height: 100svh;
   padding: clamp(96px, 12vw, 180px) var(--gutter) var(--gutter);
-  background: var(--clay);
-  color: var(--paper);
+  background: var(--stone);
+  color: var(--ink);
   overflow: clip;
 }
 /* Todo el contenido queda por encima del retrato */
 .contact > *:not(.contact__portrait) { position: relative; z-index: 1; }
 
-/* Retrato grande, a sangre en la esquina inferior derecha. Su fondo terracota es casi el de --clay,
+/* Retrato grande, a sangre en la esquina inferior derecha. Su fondo es el mismo tono de --stone,
    así que los bordes izquierdo y superior se difuminan y la foto emerge del bloque. */
 .contact__portrait {
   position: absolute;
@@ -22,10 +22,10 @@
   aspect-ratio: 772 / 976; /* proporción real de la foto: se ve entera */
   overflow: hidden;
   margin: 0;
-  background: var(--clay);
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24%), linear-gradient(to bottom, transparent 0, #000 16%);
+  background: var(--stone);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 24%), linear-gradient(to bottom, transparent 0, #000 7%);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent 0, #000 24%), linear-gradient(to bottom, transparent 0, #000 16%);
+  mask-image: linear-gradient(to right, transparent 0, #000 24%), linear-gradient(to bottom, transparent 0, #000 7%);
   mask-composite: intersect;
 }
 .contact__img {
@@ -38,7 +38,7 @@
 
 .contact__title {
   margin-top: clamp(24px, 3vw, 48px);
-  font-size: clamp(5rem, 15.4vw, 18rem); /* 'Hablemos.' ≈ 3.3 em → cabe en ~51 vw, sin pisar el retrato */
+  font-size: clamp(4.25rem, 13.09vw, 15.3rem); /* 'Hablemos.' ≈ 3.3 em → cabe en ~51 vw, sin pisar el retrato */
   line-height: 0.84;
   margin-left: -0.03em;
 }
@@ -58,6 +58,7 @@
   font-style: italic;
   font-size: clamp(1.4rem, 2.1vw, 2.1rem);
   line-height: 1.15;
+  color: var(--ink-soft);
 }
 
 .contact__mail {
@@ -92,11 +93,14 @@
   margin-top: auto;
   padding-top: clamp(56px, 8vw, 120px);
 }
+/* El pie vive en la mitad izquierda: a la derecha está el retrato (blazer oscuro) y el texto no se leería */
+.contact__foot { max-width: min(52%, 700px); }
 .contact__top { font: inherit; letter-spacing: inherit; text-transform: inherit; padding: 8px 0; }
 .contact__top:hover { text-decoration: underline; text-underline-offset: 5px; }
 
 @media (max-width: 899px) {
-  .contact__title { font-size: clamp(4.5rem, 24vw, 10rem); }
+  .contact__foot { max-width: none; }
+  .contact__title { font-size: clamp(3.82rem, 20.4vw, 8.5rem); }
   .contact__row { max-width: 100%; }
   .contact__portrait {
     position: relative;

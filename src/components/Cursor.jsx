@@ -59,10 +59,10 @@ export default function Cursor() {
       }
 
       // Tono: un elemento puede forzarlo (data-cursor-tone="light"), p. ej. un botón que se rellena de tinta
-      // al pasar el cursor; si no, lo decide la sección de debajo (paper → oscuro, clay/ink → claro).
+      // al pasar el cursor; si no, lo decide la sección de debajo (paper o piedra → oscuro, grafito → claro).
       const forced = hit.closest('[data-cursor-tone]')?.dataset.cursorTone
       const theme = hit.closest('[data-theme]')?.dataset.theme
-      const nextTone = forced ?? (theme ? (theme === 'paper' ? 'dark' : 'light') : tone)
+      const nextTone = forced ?? (theme ? (theme === 'paper' || theme === 'stone' ? 'dark' : 'light') : tone)
       if (nextTone && nextTone !== tone) {
         tone = nextTone
         el.dataset.tone = tone

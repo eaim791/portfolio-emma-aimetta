@@ -3,8 +3,7 @@
   color: var(--ink);
   transition: color 0.4s var(--ease-out);
 }
-html[data-header='ink'] .chrome,
-html[data-header='clay'] .chrome { color: var(--paper); }
+html[data-header='ink'] .chrome { color: var(--paper); }
 
 .header {
   position: fixed;
@@ -20,7 +19,19 @@ html[data-header='clay'] .chrome { color: var(--paper); }
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  transition: transform 0.6s var(--ease-out), color 0.4s var(--ease-out), opacity 0.8s var(--ease-out);
+  transition: transform 0.6s var(--ease-out), color 0.4s var(--ease-out), opacity 0.8s var(--ease-out),
+    height 0.5s var(--ease-out), background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+/* Con scroll, el menú se apoya en una barra translúcida del color de la sección: nunca se pierde sobre fotos ni textos. */
+.header { --nav-bg: color-mix(in srgb, var(--paper) 86%, transparent); --nav-line: rgb(31 34 23 / 0.1); }
+html[data-header='stone'] .header { --nav-bg: color-mix(in srgb, var(--stone) 86%, transparent); --nav-line: rgb(31 34 23 / 0.14); }
+html[data-header='ink'] .header { --nav-bg: color-mix(in srgb, var(--graphite) 86%, transparent); --nav-line: rgb(238 234 223 / 0.14); }
+.header.is-stuck {
+  height: 64px;
+  background: var(--nav-bg);
+  -webkit-backdrop-filter: blur(16px) saturate(1.15);
+  backdrop-filter: blur(16px) saturate(1.15);
+  box-shadow: 0 1px 0 var(--nav-line);
 }
 .header.is-hidden { transform: translateY(-100%); }
 .header.is-hidden:focus-within { transform: none; } /* teclado: nunca queda fuera de pantalla */
@@ -58,7 +69,11 @@ html[data-header='clay'] .chrome { color: var(--paper); }
 }
 
 @media (max-width: 640px) {
-  .header { letter-spacing: 0.08em; }
+  .header { gap: 10px; letter-spacing: 0.05em; }
   .header__brand span { display: none; }
-  .header__nav { gap: 12px; font-size: 0.62rem; white-space: nowrap; }
+  .header__nav { gap: 9px; font-size: 0.56rem; white-space: nowrap; }
+}
+@media (max-width: 380px) {
+  .header__brand { display: none; }
+  .header__nav { gap: 11px; }
 }
